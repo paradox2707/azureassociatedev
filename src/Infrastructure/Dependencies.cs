@@ -36,5 +36,7 @@ public static class Dependencies
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
         }
+
+        services.AddApplicationInsightsTelemetry(configuration["ApplicationInsights:ConnectionString"]);
     }
 }
