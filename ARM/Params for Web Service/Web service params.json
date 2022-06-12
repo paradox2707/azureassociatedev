@@ -1,0 +1,37 @@
+[
+	{
+        "name": "UseOnlyInMemoryDatabase",
+        "value": "false",
+        "slotSetting": false
+    }, 
+	{
+        "name": "OrderItemsReserverUrl",
+        "value": "",
+        "slotSetting": false
+    }, 
+	{
+        "name": "ServiceBusConnectionString",
+        "value": "",
+        "slotSetting": false
+    },
+	{
+        "name": "QueueName",
+        "value": "",
+        "slotSetting": false
+    }
+]
+
+[
+	{
+    "name": "CatalogConnection",
+    "value": "Server=tcp:eshop1221.database.windows.net,1433;Initial Catalog=eshop.catalog;Persist Security Info=False;User ID=paradox;Password=eShop2707;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "type": "SQLAzure",
+    "slotSetting": false
+  },
+  {
+    "name": "IdentityConnection",
+    "value": "Server=tcp:eshop1221.database.windows.net,1433;Initial Catalog=eshop.identity;Persist Security Info=False;User ID=paradox;Password=eShop2707;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "type": "SQLAzure",
+    "slotSetting": false
+  }
+]

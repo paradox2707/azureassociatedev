@@ -1,0 +1,132 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": "187d147b-dde6-46a0-9a71-eb038ae109ff"
+        },
+        "name": {
+            "type": "string",
+            "defaultValue": "PublicApi1221"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "East US"
+        },
+        "hostingPlanName": {
+            "type": "string",
+            "defaultValue": "PublicApi1221Plan"
+        },
+        "serverFarmResourceGroup": {
+            "type": "string",
+            "defaultValue": "DefaultRG"
+        },
+        "alwaysOn": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "skuCode": {
+            "type": "string",
+            "defaultValue": "S1"
+        },
+        "workerSize": {
+            "type": "string",
+            "defaultValue": "0"
+        },
+        "workerSizeId": {
+            "type": "string",
+            "defaultValue": "0"
+        },
+        "numberOfWorkers": {
+            "type": "string",
+            "defaultValue": "1"
+        },
+        "linuxFxVersion": {
+            "type": "string",
+            "defaultValue": "DOCKER|eshop1221.azurecr.io/publicapi:latest"
+        },
+        "dockerRegistryUrl": {
+            "type": "string",
+            "defaultValue": "https://eshop1221.azurecr.io"
+        },
+        "dockerRegistryUsername": {
+            "type": "string",
+            "defaultValue": "eshop1221"
+        },
+        "dockerRegistryPassword": {
+            "type": "securestring",
+            "defaultValue": "",
+			"metadata": {
+			  "description": "Required parameter"
+			}
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('name')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            ],
+            "properties": {
+                "name": "[parameters('name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_URL",
+                            "value": "[parameters('dockerRegistryUrl')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                            "value": "[parameters('dockerRegistryUsername')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                            "value": "[parameters('dockerRegistryPassword')]"
+                        },
+                        {
+                            "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                            "value": "false"
+                        }
+                    ],
+                    "linuxFxVersion": "[parameters('linuxFxVersion')]",
+                    "appCommandLine": "",
+                    "alwaysOn": "[parameters('alwaysOn')]"
+                },
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "clientAffinityEnabled": false,
+                "virtualNetworkSubnetId": null
+            }
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('location')]",
+            "kind": "linux",
+            "tags": {},
+            "dependsOn": [],
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSize": "[parameters('workerSize')]",
+                "workerSizeId": "[parameters('workerSizeId')]",
+                "numberOfWorkers": "[parameters('numberOfWorkers')]",
+                "reserved": true,
+                "zoneRedundant": false
+            },
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            }
+        }
+    ]
+}
