@@ -1,0 +1,1 @@
+https://eshopfunc20220613001108.azurewebsites.net/api/DeliveryOrderProcessor?clientId=sNwnD5F5W2XRw778goTT7OOgiBBWVIivv8_CU6kHsoBEAzFuKbivIA==

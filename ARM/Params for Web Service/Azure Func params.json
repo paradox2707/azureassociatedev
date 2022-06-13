@@ -1,0 +1,42 @@
+[
+	{
+        "name": "CosmosDB",
+        "value": "eShop",
+        "slotSetting": false
+    }, 
+	{
+        "name": "CosmosDBConnection",
+        "value": "",
+        "slotSetting": false
+    }, 
+	{
+        "name": "CosmosDBContainer",
+        "value": "Orders",
+        "slotSetting": false
+    },
+	{
+        "name": "BlobContainer",
+        "value": "orders",
+        "slotSetting": false
+    }, 
+	{
+        "name": "queue-name",
+        "value": "orders",
+        "slotSetting": false
+    }, 
+	{
+        "name": "ServiceBus",
+        "value": "",
+        "slotSetting": false
+    }, 
+	{
+        "name": "StorageAccountConnection",
+        "value": "az storage account show-connection-string --name <storage-account-name> --output tsv",
+        "slotSetting": false
+    }, 
+	{
+        "name": "LogicAppUrl",
+        "value": "",
+        "slotSetting": false
+    }
+]

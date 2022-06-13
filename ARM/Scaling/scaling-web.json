@@ -1,0 +1,72 @@
+{
+    "location": "Germany West Central",
+    "tags": {},
+    "properties": {
+        "name": "WebEU20220612165232Plan-Autoscale-828",
+        "enabled": true,
+        "predictiveAutoscalePolicy": {
+            "scaleMode": "Disabled",
+            "scaleLookAheadTime": null
+        },
+        "targetResourceUri": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/resourceGroups/DefaultRG/providers/Microsoft.Web/serverfarms/WebEU20220612165232Plan",
+        "profiles": [
+            {
+                "name": "Auto created scale condition",
+                "capacity": {
+                    "minimum": "1",
+                    "maximum": "10",
+                    "default": "1"
+                },
+                "rules": [
+                    {
+                        "scaleAction": {
+                            "direction": "Increase",
+                            "type": "ChangeCount",
+                            "value": "3",
+                            "cooldown": "PT5M"
+                        },
+                        "metricTrigger": {
+                            "metricName": "CpuPercentage",
+                            "metricNamespace": "microsoft.web/serverfarms",
+                            "metricResourceUri": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/resourceGroups/DefaultRG/providers/Microsoft.Web/serverFarms/WebEU20220612165232Plan",
+                            "operator": "GreaterThan",
+                            "statistic": "Average",
+                            "threshold": 25,
+                            "timeAggregation": "Average",
+                            "timeGrain": "PT1M",
+                            "timeWindow": "PT5M",
+                            "Dimensions": [],
+                            "dividePerInstance": false
+                        }
+                    },
+                    {
+                        "scaleAction": {
+                            "direction": "Decrease",
+                            "type": "ChangeCount",
+                            "value": "1",
+                            "cooldown": "PT5M"
+                        },
+                        "metricTrigger": {
+                            "metricName": "CpuPercentage",
+                            "metricNamespace": "microsoft.web/serverfarms",
+                            "metricResourceUri": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/resourceGroups/DefaultRG/providers/Microsoft.Web/serverFarms/WebEU20220612165232Plan",
+                            "operator": "LessThan",
+                            "statistic": "Average",
+                            "threshold": 10,
+                            "timeAggregation": "Average",
+                            "timeGrain": "PT1M",
+                            "timeWindow": "PT5M",
+                            "Dimensions": [],
+                            "dividePerInstance": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "notifications": [],
+        "targetResourceLocation": "Germany West Central"
+    },
+    "id": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/resourceGroups/DefaultRG/providers/microsoft.insights/autoscalesettings/WebEU20220612165232Plan-Autoscale-828",
+    "name": "WebEU20220612165232Plan-Autoscale-828",
+    "type": "Microsoft.Insights/autoscaleSettings"
+}
