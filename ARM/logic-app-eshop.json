@@ -1,0 +1,163 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_eshop1221_name": {
+            "defaultValue": "eshop1221",
+            "type": "String"
+        },
+        "connections_gmail_1_externalid": {
+            "defaultValue": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/resourceGroups/DefaultRG/providers/Microsoft.Web/connections/gmail-1",
+            "type": "String"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "eastus"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_eshop1221_name')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {
+                                    "properties": {
+                                        "BuyerId": {
+                                            "type": "string"
+                                        },
+                                        "Id": {
+                                            "type": "integer"
+                                        },
+                                        "OrderDate": {
+                                            "type": "string"
+                                        },
+                                        "OrderItems": {
+                                            "items": {
+                                                "properties": {
+                                                    "Id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "ItemOrdered": {
+                                                        "properties": {
+                                                            "CatalogItemId": {
+                                                                "type": "integer"
+                                                            },
+                                                            "PictureUri": {
+                                                                "type": "string"
+                                                            },
+                                                            "ProductName": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "UnitPrice": {
+                                                        "type": "integer"
+                                                    },
+                                                    "Units": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "ItemOrdered",
+                                                    "UnitPrice",
+                                                    "Units",
+                                                    "Id"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "ShipToAddress": {
+                                            "properties": {
+                                                "City": {
+                                                    "type": "string"
+                                                },
+                                                "Country": {
+                                                    "type": "string"
+                                                },
+                                                "State": {
+                                                    "type": "string"
+                                                },
+                                                "Street": {
+                                                    "type": "string"
+                                                },
+                                                "ZipCode": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Response": {
+                            "runAfter": {
+                                "Send_email_(V2)": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Response",
+                            "kind": "Http",
+                            "inputs": {
+                                "statusCode": 200
+                            }
+                        },
+                        "Send_email_(V2)": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "Body": "<p>@{triggerBody()}</p>",
+                                    "Subject": "Reserved order does not send to blob",
+                                    "To": "paradoxical.ai@gmail.com"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['gmail']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/Mail"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "gmail": {
+                                "connectionId": "[parameters('connections_gmail_1_externalid')]",
+                                "connectionName": "gmail-1",
+                                "id": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/providers/Microsoft.Web/locations/eastus/managedApis/gmail"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

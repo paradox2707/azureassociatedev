@@ -31,7 +31,7 @@
     }, 
 	{
         "name": "StorageAccountConnection",
-        "value": "az storage account show-connection-string --name <storage-account-name> --output tsv",
+        "value": "az storage account show-connection-string --resource-group DefaultRG --name eshopfunc20220614005255s --output tsv",
         "slotSetting": false
     }, 
 	{

@@ -16,7 +16,7 @@
     },
 	{
         "name": "QueueName",
-        "value": "",
+        "value": "orders",
         "slotSetting": false
     }
 ]
@@ -31,6 +31,21 @@
   {
     "name": "IdentityConnection",
     "value": "Server=tcp:eshop1221.database.windows.net,1433;Initial Catalog=eshop.identity;Persist Security Info=False;User ID=paradox;Password=eShop2707;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "type": "SQLAzure",
+    "slotSetting": false
+  }
+]
+
+[
+  {
+    "name": "CatalogConnection",
+    "value": "@Microsoft.KeyVault(SecretUri=https://eshop1221.vault.azure.net/secrets/CatalogConnection/9f994e4b260241f1902f8050ed8af50c)",
+    "type": "SQLAzure",
+    "slotSetting": false
+  },
+  {
+    "name": "IdentityConnection",
+    "value": "@Microsoft.KeyVault(SecretUri=https://eshop1221.vault.azure.net/secrets/IdentityConnection/979b3c667c55427599cdff89ee8eca5b)",
     "type": "SQLAzure",
     "slotSetting": false
   }
