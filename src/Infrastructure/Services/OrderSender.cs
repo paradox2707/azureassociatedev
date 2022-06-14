@@ -17,18 +17,20 @@ public class OrderSender : IOrderSender
     private readonly HttpClient _httpClient;
     private readonly string _serviceBusConnectionString;
     private readonly string _queueName;
+    private readonly string _orderDeliveryUrl;
 
     public OrderSender(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
         _serviceBusConnectionString = configuration["ServiceBusConnectionString"];
         _queueName = configuration["QueueName"];
+        _orderDeliveryUrl = configuration["OrderDeliveryUrl"];
     }
 
     public async Task Run(Order order)
     {
         var orderMessage = JsonConvert.SerializeObject(order);
-        var response = await _httpClient.PostAsync("", new StringContent(orderMessage));
+        var response = await _httpClient.PostAsync(_orderDeliveryUrl, new StringContent(orderMessage));
         SendToServiceBus(orderMessage);
     }
 

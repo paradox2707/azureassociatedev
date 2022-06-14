@@ -76,8 +76,7 @@ builder.Services.Configure<ServiceConfig>(config =>
 });
 
 // azure func configuration
-builder.Services.AddHttpClient<IOrderSender, OrderSender>(
-    client => client.BaseAddress = new Uri(builder.Configuration["OrderItemsReserverUrl"]));
+builder.Services.AddHttpClient<IOrderSender, OrderSender>();
 
 // blazor configuration
 var configSection = builder.Configuration.GetRequiredSection(BaseUrlConfiguration.CONFIG_NAME);
