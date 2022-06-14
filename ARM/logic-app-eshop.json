@@ -6,10 +6,6 @@
             "defaultValue": "eshop1221",
             "type": "String"
         },
-        "connections_gmail_1_externalid": {
-            "defaultValue": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/resourceGroups/DefaultRG/providers/Microsoft.Web/connections/gmail-1",
-            "type": "String"
-        },
         "location": {
             "type": "string",
             "defaultValue": "eastus"
@@ -145,17 +141,6 @@
                         }
                     },
                     "outputs": {}
-                },
-                "parameters": {
-                    "$connections": {
-                        "value": {
-                            "gmail": {
-                                "connectionId": "[parameters('connections_gmail_1_externalid')]",
-                                "connectionName": "gmail-1",
-                                "id": "/subscriptions/187d147b-dde6-46a0-9a71-eb038ae109ff/providers/Microsoft.Web/locations/eastus/managedApis/gmail"
-                            }
-                        }
-                    }
                 }
             }
         }
